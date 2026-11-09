@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doce Encanto | Cupcakes</title><link rel="stylesheet" href="{% static 'loja/style.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>Doce Encanto</h1>
+
+        <nav>
+            <a href="/">Início</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#sobre">Sobre nós</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Pequenos momentos, grandes sabores!</h2>
+
+            <p>
+                Cupcakes preparados com carinho
+                para tornar seus momentos especiais.
+            </p>
+
+            <a href="#produtos">Conheça nossos produtos</a>
+        </section>
+
+        <section id="produtos">
+    <h2>Nossos cupcakes</h2>
+    <p>Confira nossas delícias!</p>
+
+    <div class="produtos-container">
+        {% for produto in produtos %}
+            <div class="produto-card">
+                <h3>{{ produto.nome }}</h3>
+
+                <p>{{ produto.descricao }}</p>
+
+                <strong>
+                    R$ {{ produto.preco }}
+                </strong>
+
+                <p>Estoque: {{ produto.estoque }}</p>
+            </div>
+        {% empty %}
+            <p>Nenhum produto disponível no momento.</p>
+        {% endfor %}
+    </div>
+</section>
+
+        <section id="sobre">
+            <h2>Sobre nós</h2>
+            <p>
+                Somos uma loja especializada em cupcakes,
+                com produtos preparados para adoçar seu dia.
+            </p>
+        </section>
+
+        <section id="contato">
+            <h2>Entre em contato</h2>
+            <p>Estamos prontos para atender você!</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Doce Encanto © 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

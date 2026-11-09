@@ -1,0 +1,16 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Banco de dados local
+db.sqlite3
+
+# Arquivos Python temporários
+__pycache__/
+*.py[cod]
+
+# Configurações sensíveis
+.env
+
+# Arquivos estáticos gerados
+staticfiles/

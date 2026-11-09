@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff8f2;
+    color: #49352f;
+}
+
+header {
+    background-color: #633b36;
+    color: white;
+    padding: 25px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 28px;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #f3c7a5;
+}
+
+main section {
+    padding: 70px 8%;
+}
+
+main section:first-child {
+    background-color: #f4dfd1;
+    text-align: center;
+    padding: 110px 8%;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+main section a {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 14px 25px;
+    background-color: #633b36;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+footer {
+    background-color: #633b36;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+.produtos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.produto-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.produto-card h3 {
+    margin-bottom: 15px;
+    color: #633b36;
+}
+
+.produto-card strong {
+    display: block;
+    margin-top: 18px;
+    font-size: 20px;
+    color: #254737;
+}
