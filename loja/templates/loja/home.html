@@ -1,75 +1,241 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doce Encanto | Cupcakes</title><link rel="stylesheet" href="{% static 'loja/style.css' %}">
+
+    <title>Doce Encanto | Cupcakes artesanais</title>
+
+    <link rel="stylesheet" href="{% static 'loja/style.css' %}">
 </head>
+
 <body>
 
-    <header>
-        <h1>Doce Encanto</h1>
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+        <div class="container cabecalho-conteudo">
 
-        <nav>
-            <a href="/">Início</a>
-            <a href="#produtos">Produtos</a>
-            <a href="#sobre">Sobre nós</a>
-            <a href="#contato">Contato</a>
-        </nav>
+            <a href="{% url 'home' %}" class="logo">
+    <img src="{% static 'loja/images/logo.png' %}" alt="Doce Encanto">
+</a>
+
+            <nav class="menu">
+                <a href="{% url 'home' %}">Início</a>
+                <a href="#produtos">Produtos</a>
+                <a href="#sobre">Sobre nós</a>
+                <a href="#contato">Contato</a>
+                <a href="{% url 'carrinho' %}" class="link-carrinho">
+                    Meu carrinho
+                </a>
+            </nav>
+
+        </div>
     </header>
 
+
+    <!-- DESTAQUE PRINCIPAL -->
     <main>
-        <section>
-            <h2>Pequenos momentos, grandes sabores!</h2>
 
-            <p>
-                Cupcakes preparados com carinho
-                para tornar seus momentos especiais.
-            </p>
+        <section class="hero">
+            <div class="container hero-conteudo">
 
-            <a href="#produtos">Conheça nossos produtos</a>
-        </section>
+                <div class="hero-texto">
+                    <span class="subtitulo">FEITO COM CARINHO PARA VOCÊ</span>
 
-        <section id="produtos">
-    <h2>Nossos cupcakes</h2>
-    <p>Confira nossas delícias!</p>
+                    <h1>
+                        Pequenos momentos,
+                        <span>grandes sabores!</span>
+                    </h1>
 
-    <div class="produtos-container">
-        {% for produto in produtos %}
-            <div class="produto-card">
-                <h3>{{ produto.nome }}</h3>
+                    <p>
+                        Cupcakes preparados com carinho,
+                        ingredientes selecionados e muito sabor
+                        para tornar seus momentos especiais.
+                    </p>
 
-                <p>{{ produto.descricao }}</p>
+                    <a href="#produtos" class="botao-principal">
+                        Conheça nossos cupcakes
+                    </a>
+                </div>
+                </div>
 
-                <strong>
-                    R$ {{ produto.preco }}
-                </strong>
-
-                <p>Estoque: {{ produto.estoque }}</p>
             </div>
-        {% empty %}
-            <p>Nenhum produto disponível no momento.</p>
-        {% endfor %}
-    </div>
-</section>
-
-        <section id="sobre">
-            <h2>Sobre nós</h2>
-            <p>
-                Somos uma loja especializada em cupcakes,
-                com produtos preparados para adoçar seu dia.
-            </p>
         </section>
 
-        <section id="contato">
-            <h2>Entre em contato</h2>
-            <p>Estamos prontos para atender você!</p>
+
+        <!-- PRODUTOS -->
+        <section id="produtos" class="secao-produtos">
+
+            <div class="container">
+
+                <div class="titulo-secao">
+                    <span class="subtitulo">NOSSAS DELÍCIAS</span>
+                    <h2>Nossos cupcakes</h2>
+                    <p>Escolha seus favoritos e adoce o seu dia!</p>
+                </div>
+
+                {% for message in messages %}
+                    <div class="mensagem">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                <div class="produtos-container">
+
+                    {% for produto in produtos %}
+
+                        <article class="produto-card">
+
+                            {% if produto.imagem %}
+                                <img
+                                    src="{{ produto.imagem.url }}"
+                                    alt="{{ produto.nome }}"
+                                    class="produto-imagem"
+                                >
+                            {% else %}
+                                <div class="produto-sem-imagem">
+                                    <span>🧁</span>
+                                </div>
+                            {% endif %}
+
+                            <div class="produto-conteudo">
+
+                                <h3>{{ produto.nome }}</h3>
+
+                                <p class="produto-descricao">
+                                    {{ produto.descricao }}
+                                </p>
+
+                                <div class="produto-informacoes">
+
+                                    <strong class="produto-preco">
+                                        R$ {{ produto.preco }}
+                                    </strong>
+
+                                    <span class="produto-estoque">
+                                        {{ produto.estoque }} disponíveis
+                                    </span>
+
+                                </div>
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'adicionar_carrinho' produto.id %}"
+                                >
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="botao-adicionar"
+                                    >
+                                        Adicionar ao carrinho
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </article>
+
+                    {% empty %}
+
+                        <div class="produtos-vazios">
+                            <h3>Nossos cupcakes estão chegando!</h3>
+                            <p>Nenhum produto disponível no momento.</p>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
         </section>
+
+
+        <!-- SOBRE NÓS -->
+        <section id="sobre" class="secao-sobre">
+
+            <div class="container sobre-conteudo">
+
+                <div class="sobre-texto">
+
+                    <span class="subtitulo">NOSSA HISTÓRIA</span>
+
+                    <h2>Um toque de carinho em cada detalhe</h2>
+
+                    <p>
+                        A Doce Encanto nasceu da paixão por confeitaria
+                        e pelo desejo de transformar momentos simples
+                        em experiências especiais.
+                    </p>
+
+                    <p>
+                        Trabalhamos com dedicação e carinho,
+                        preparando cupcakes deliciosos para adoçar
+                        o dia dos nossos clientes.
+                    </p>
+
+                    <a href="#produtos" class="botao-principal">
+                        Conheça nossos produtos
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTATO -->
+        <section id="contato" class="secao-contato">
+
+            <div class="container contato-conteudo">
+
+                <span class="subtitulo">ESTAMOS AQUI PARA VOCÊ</span>
+
+                <h2>Vamos adoçar seu dia?</h2>
+
+                <p>
+                    Quer fazer um pedido ou tirar alguma dúvida?
+                    Entre em contato conosco!
+                </p>
+
+                <a
+                    href="https://wa.me/5511999999999"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="botao-whatsapp"
+                >
+                    Fale conosco pelo WhatsApp
+                </a>
+
+                <span class="telefone-contato">
+                    Telefone: (11) 99999-9999
+                </span>
+
+            </div>
+
+        </section>
+
     </main>
 
-    <footer>
-        <p>Doce Encanto © 2026 - Todos os direitos reservados.</p>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape">
+
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo logo-rodape">
+                Doce <span>Encanto</span>
+            </a>
+
+            <p>
+                Doce Encanto © 2026 - Todos os direitos reservados.
+            </p>
+        </div>
+
     </footer>
 
 </body>
